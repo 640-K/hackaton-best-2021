@@ -1,6 +1,9 @@
 import './App.css';
+import Login from "./Login";
+import {useState} from "react";
 
-const App = () =>{
+
+const App = (props) =>{
   let a = [
     {
         id: 0,
@@ -33,26 +36,26 @@ const App = () =>{
     }
   ];
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <ListContainer names = {a} />
+  const [name, setName] = useState(false);
+  if(!name ){
+      return <Login setName={setName}/>;
 
-      </header>
-    </div>
+  }
+
+  return (
+      <div className="App">
+          <header className="App-header">
+              <ListContainer name={a}/>
+          </header>
+      </div>
   );
 }
 
 function ListContainer(props) {
   return(
-        <ul className="name-list">
-            {
-                props.names.slice(0, 6).map(((names,keyId) => (
-                    <li key={keyId}>
-                        <button type="button" className="btn btn-dark">{names.name}</button>
-                    </li>)))
-            }
-        </ul>
+<div>
+    wswegwegwegweg
+</div>
     );
 }
 
