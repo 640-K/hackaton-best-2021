@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from "react";
+import Leaderboard from "../../Leaderboard";
 
 function Bar({setRestart}) {
 	const [seconds, setSeconds] = useState(10);
@@ -22,6 +23,7 @@ function Bar({setRestart}) {
 				if (seconds === 0) {
 					reset();
 					clearInterval(interval);
+					return(<Leaderboard/>);
 				}
 			}
 		return () => clearInterval(interval);

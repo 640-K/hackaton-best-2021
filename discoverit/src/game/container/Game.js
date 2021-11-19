@@ -27,10 +27,10 @@ function Game({items}){
 
     function ListContainer({items,index}) {
     return(
-        <ul className="name-list">
+        <ul className="name-list" style={{"list-style-type": "none", "padding-left":"0"}}>
             {
                 items.map(((item,keyId) => (
-                    <li key={keyId}>
+                    <li key={keyId} >
                         {keyId == index
                             ? <button type="button" className="btn btn-dark" onClick={()=>HandleAddPoints()}>{item.name}</button>
                             : <button type="button" className="btn btn-dark" onClick={()=>HandleDeductPoints()}>{item.name}</button>
@@ -43,7 +43,7 @@ function Game({items}){
 
     return(
         <div styles={{"display": "column"}}>
-            <img className="rounded img-responsive" src={imgLink} width="500" height="600"/>
+            <img className="rounded img-responsive" src={imgLink} width="250" height="300"/>
             <ListContainer items={items} index={index}/>
             <div>
                 {points}
