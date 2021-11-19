@@ -1,59 +1,19 @@
+import React, {useState,useEffect} from "react";
 import './App.css';
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import Index from "./game/index.js";
 
 const App = () =>{
-  let a = [
-    {
-        id: 0,
-        name: "Church",
-    },
-    {
-        id: 1,
-        name: "City Hall",
-
-    },
-    {
-        id: 2,
-        name: "Tower",
-    },
-    {
-        id: 3,
-        name: "Museum",
-    },
-    {
-        id: 4,
-        name: "Farm",
-    },
-    {
-        id: 5,
-        name: "Restaurant",
-    },
-    {
-        id: 6,
-        name: "Park",
-    }
-  ];
-
-  return (
+    
+    return (    
     <div className="App">
-      <header className="App-header">
-        <ListContainer names = {a} />
-
-      </header>
+        <header className="App-header">
+            <Index/>
+        </header>
     </div>
-  );
-}
-
-function ListContainer(props) {
-  return(
-        <ul className="name-list">
-            {
-                props.names.slice(0, 6).map(((names,keyId) => (
-                    <li key={keyId}>
-                        <button type="button" className="btn btn-dark">{names.name}</button>
-                    </li>)))
-            }
-        </ul>
     );
 }
+
+
 
 export default App;
