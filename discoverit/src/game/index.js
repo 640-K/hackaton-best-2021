@@ -11,7 +11,7 @@ export default function Index() {
 
   useEffect(() => {
     let d = []
-    for(let key of ['statue' ,'church', 'palace', 'tower', 'museum', 'streets', 'bandera', 'музей', 'пам\'ятка'] ){
+    for(let key of ['statue' ,'church', 'palace', 'музей', 'пам\'ятка', 'старий' ,'порохова', 'високий' ,'ратуша','монастир', 'базар', 'фортеця', 'tower', 'museum', 'streets'] ){
       getPlaces(key, position).then(result => {
         console.log('RESULT: ' + places.length)
         let t = []
