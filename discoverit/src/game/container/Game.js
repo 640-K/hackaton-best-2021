@@ -5,14 +5,14 @@ import Bar from "./Bar";
 import contex from "../../contex";
 import Leaderboard from "../../Leaderboard";
 import {getMaxScore} from '../../firebase'
-function Game({items}) {
+
+
+function Game({nextPlaces, setPlacePhoto}) {
     const dispatch = useDispatch();
     const store = useSelector(state => state.store);
     const {user} = useContext(contex)
-    let index = Math.floor(Math.random() * items.length)
-
-    let imgLink = items[index].link;
-
+    let index = Math.floor(Math.random() * nextPlaces.length)
+    console.log(nextPlaces)
     const [points, setPoints] = useState(store.points);
     const [update, setUpdate] = useState(0);
     const [start, setStart] = useState(false);
@@ -51,6 +51,12 @@ function Game({items}) {
         );
     }
 
+    useEffect(() => {
+        if (nextPlaces !== undefined && nextPlaces !== null && nextPlaces.length > 0)
+          setPlacePhoto('image', nextPlaces[0])
+      }, [nextPlaces]);
+//getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)}
+
     function getGame(){
         return (
             <div>
@@ -60,8 +66,8 @@ function Game({items}) {
                                 <h5 className="card-title">Max score : <b>{max}</b></h5>
                             </div>
                             <Bar update={update} start={start} setEnd={setEnd}/>
-                            <img className="rounded img-responsive card-img-top" src={imgLink}/>
-                            <ListContainer items={items} index={index}/>
+                            <img id="image" className="rounded img-responsive card-img-top"/>
+                            <ListContainer items={nextPlaces} index={index}/>
             </div>
         )
     }

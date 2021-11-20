@@ -1,35 +1,24 @@
-import React, {useState} from 'react';
-import Game from "./container/Game.js";
+import React, {useState, useEffect} from 'react';
 import {Loading} from "../loader";
+import {getPlaces, getNextPlaces, setPlacePhoto} from '../mapsApi';
+import Game from "./container/Game";
 
 
 export default function Index() {
-	let a = [
-        {
-            id: 0,
-            name: "Church",
-            link: "https://upload.wikimedia.org/wikipedia/commons/5/53/Lviv_Bernardine_monastery.jpg",
-        },
-        {
-            id: 1,
-            name: "City Hall",
-            link: "https://lviv.travel/image/news/99/78/99783d62a5876cfa44b201c791496b4f0e379957_1581667807.jpeg?crop=3840%2C2066%2C0%2C47",
+    const [nextIndex, setNextIndex] = useState(0);
+      const [position, setPosition] = useState('49.842957%2C24.031111');
+      const [nextPlaces, setNextPlaces] = useState([]);
+      const [places, setPlaces] = useState([]);
+      navigator.geolocation.getCurrentPosition(position => setPosition(`${position.coords.latitude}%2C${position.coords.longitude}`));
 
-        },
-        {
-            id: 2,
-            name: "Tower",
-            link: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWyU204P3MtPy_APPpkjy3aDlngzuPo7mlmJMgFRmCPPN5VWmqRhrAkQlRgj64kC38KaU&usqp=CAU",
-        },
-        {
-            id: 3,
-            name: "Museum",
-            link: "https://api.time.com/wp-content/uploads/2019/09/british-museum-london-exterior.jpg",
-        }
-    ];
-    const [items, setItems] = useState(a);
+      useEffect(() => getPlaces('church', position).then(result => {
+          setPlaces(result.data)
+          getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
+      }), []);
 
-    if(!items)
+
+
+    if(!nextPlaces.length)
         return <Loading />
-	return <Game items={items}/>
+	return <Game nextPlaces={nextPlaces} setPlacePhoto={setPlacePhoto}/>
 }

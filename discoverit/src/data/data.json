@@ -1,5 +1,6 @@
 {
     "maps": {
-        "key": ""
-    }
+        "key": "AIzaSyAWcsYLR8MTc_oKdRNL03vtfaOk4Jhs_4U"
+    },
+    "backendUrl": "http://localhost:3001/"
 }
