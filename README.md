@@ -11,3 +11,6 @@ displayed on the picture.
 - Node JS
 - Firebase
 - Google Places API
+
+## Check it out!
+http://discover-it.ml/
