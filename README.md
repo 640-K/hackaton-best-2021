@@ -1,4 +1,4 @@
-# Hacakton Test task 2021
+# BEST Hacakton Test Task 2021
 
 ## Idea:
 Our idea is to give a quick way of learning seesights of your native city.  
