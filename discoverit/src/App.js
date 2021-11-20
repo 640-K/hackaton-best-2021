@@ -26,7 +26,6 @@ const App = () =>{
         return <Loading />
 
     return (
-
          <Context.Provider value={{user}}>
             {user ? <Index/> : <Login setUser={setUser}/>}
         </Context.Provider>
