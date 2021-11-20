@@ -1,3 +1,4 @@
+
 const express = require('express');
 const axios = require('axios');
 const url = require('url');
@@ -16,6 +17,7 @@ app.use(express.static(staticPath));
 app.set('port', process.env.PORT || 3001);
 
 app.get('/api/places', (req, res) => {
+    console.log(req)
     const query = url.parse(req.url,true).query;
     res.setHeader('Access-Control-Allow-Origin', '*');
     axios.get(`${nearbySearchUrl}?keyword=${query.keyword}&location=${query.location}&radius=${query.radius}&key=${data.maps.key}`).then(result => {

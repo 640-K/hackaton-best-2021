@@ -17,16 +17,19 @@ function Game({places}) {
     const [start, setStart] = useState(false);
     const [isEnd, setEnd] = useState(false);
     const [max, setMax] = useState('???');
-    
+    const [random, setRandom] = useState(Math.floor(Math.random() * 4))
+
     // const [gameRendering,setGameRendering] = useState(false);
     const [nextPlaces, setNextPlaces] = useState([]);
     const [nextIndex, setNextIndex] = useState(0);
-    
+
     // getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
 
-    useEffect(() => getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex), [])
-    
-    let index = Math.floor(Math.random() * nextPlaces.length)
+    useEffect(() => {
+        console.log(12)
+        getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
+    },[])
+
     console.log(nextPlaces)
 
     useEffect(() => {
@@ -40,13 +43,16 @@ function Game({places}) {
     }
 
     function HandleAddPoints() {
-        let point = 100;
+        setRandom(Math.floor(Math.random() * 4))
+        getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
+        let point = 100
         dispatch(savePoints(point));
         setUpdate(update > 0 ? update+1 : 1)
         setPoints(store.points);
     }
 
     function ListContainer({items, index}) {
+        console.log(index)
         return (
             <ul className="name-list" style={{"listStyleType": "none", "paddingLeft": "0", "columnCount": "2"}}>
                 {
@@ -66,7 +72,7 @@ function Game({places}) {
     //         setPlacePhoto('place-image', nextPlaces[0])
     // }, [gameRendering]);
 
-    function getGame(item) {
+    function getGame(index) {
         return (
             <div>
                 <div className="d-flex justify-content-between">
@@ -75,7 +81,7 @@ function Game({places}) {
                     <h5 className="card-title">Max score : <b>{max}</b></h5>
                 </div>
                 <Bar update={update} start={start} setEnd={setEnd}/>
-                <img id="place-image" className="rounded img-responsive card-img-top" src={getPlacePhotoLink(item)}/>
+                <img id="place-image" className="rounded img-responsive card-img-top" src={getPlacePhotoLink(nextPlaces[index])}/>
                 <ListContainer items={nextPlaces} index={index}/>
             </div>
         )
@@ -95,7 +101,7 @@ function Game({places}) {
                 <div className="col-11">
                     <div className="card">
                         <div className="card-body">
-                            {start ? isEnd ? <Leaderboard score={points} setEnd={setEnd} setStart={setStart} setUpdate={setUpdate} setPoints={setPoints}/> : getGame(nextPlaces[0]) : getStart()}
+                            {start ? isEnd ? <Leaderboard score={points} setEnd={setEnd} setStart={setStart} setUpdate={setUpdate} setPoints={setPoints}/> : getGame(random) : getStart()}
                         </div>
                     </div>
                 </div>
