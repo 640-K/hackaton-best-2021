@@ -1,12 +1,10 @@
 import React, {useState, useEffect, useContext} from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {savePoints} from "../../redux/actions/Actions";
 import Bar from "./Bar";
-import contex from "../../contex";
+import contex from "../../context";
 import Leaderboard from "../../Leaderboard";
 import {getMaxScore} from '../../firebase'
 import {getNextPlaces, getPlacePhotoLink} from '../../mapsApi';
-
 
 function Game({places}) {
     const dispatch = useDispatch();
@@ -18,15 +16,10 @@ function Game({places}) {
     const [isEnd, setEnd] = useState(false);
     const [max, setMax] = useState('???');
     const [random, setRandom] = useState(Math.floor(Math.random() * 4))
-
-    // const [gameRendering,setGameRendering] = useState(false);
     const [nextPlaces, setNextPlaces] = useState([]);
-    const [nextIndex, setNextIndex] = useState(0);
-
-    // getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
 
     useEffect(() => {
-        getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
+        getNextPlaces(4, places, setNextPlaces)
     },[])
 
     useEffect(()=>{
@@ -41,7 +34,7 @@ function Game({places}) {
 
     function HandleAddPoints() {
         setRandom(Math.floor(Math.random() * 4))
-        getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
+        getNextPlaces(4, places, setNextPlaces)
         setPoints(points+100);
         setUpdate(update > 0 ? update+1 : 1)
     }
@@ -60,11 +53,6 @@ function Game({places}) {
             </ul>
         );
     }
-
-    // useEffect(() => {
-    //     if (nextPlaces !== undefined && nextPlaces !== null && nextPlaces.length > 0 && gameRendering)
-    //         setPlacePhoto('place-image', nextPlaces[0])
-    // }, [gameRendering]);
 
     function getGame(index) {
         return (

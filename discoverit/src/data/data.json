@@ -2,5 +2,14 @@
     "backendUrl": "http://138.68.125.87:3001",
     "maps": {
         "key": "AIzaSyAWcsYLR8MTc_oKdRNL03vtfaOk4Jhs_4U"
+    },
+    "firebaseConfig": {
+        "apiKey": "AIzaSyBiCZpwy8ae1-2HrS2CryZqGJaGQ5lvfgc",
+        "authDomain": "discoverit-2d4ab.firebaseapp.com",
+        "projectId": "discoverit-2d4ab",
+        "storageBucket": "discoverit-2d4ab.appspot.com",
+        "messagingSenderId": "63565936836",
+        "appId": "1:63565936836:web:04b5872a1a78f311e23191",
+        "measurementId": "G-J308LB1GLB"
     }
 }

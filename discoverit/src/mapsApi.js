@@ -18,17 +18,17 @@ export function getPlaces(keyword, location, radius = 10000) {
 }
 
 export function randomArrayShuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-  while (0 !== currentIndex) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
 }
 
-export function getNextPlaces(count, places, setPlaces, nextIndex, setNextIndex) {
-    setPlaces(randomArrayShuffle(places).slice(0,4))
+export function getNextPlaces(count, places, setPlaces) {
+    setPlaces(randomArrayShuffle(places).slice(0,count))
 }

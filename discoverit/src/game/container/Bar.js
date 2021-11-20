@@ -6,10 +6,11 @@ function Bar({update, start, setEnd}) {
 	const [seconds, setSeconds] = useState(20);
 
 	useEffect(()=>{
-		if (update > 0)
+		if (update > 0) {
 			setSeconds(20)
-		else if (update < 0)
+        } else if (update < 0) {
 			setSeconds(seconds-6)
+        }
 	}, [update])
 
 	useEffect(() => {
@@ -24,8 +25,9 @@ function Bar({update, start, setEnd}) {
 				}
 			}
 		return () => clearInterval(interval);
-		}, [start, seconds]);
-	return(
+    }, [start, seconds]);
+
+    return(
         <div className="progress mb-3">
             <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{"width": `${(seconds/20)*100}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"/>
         </div>

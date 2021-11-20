@@ -6,18 +6,16 @@ import {auth} from "./firebase"
 import {Loading} from "./loader";
 import Context from "./contex";
 
-const App = () =>{
+const App = () => {
     const [user, setUser] = useState(false);
 
-
-    useEffect(()=>{
+    useEffect(() => {
         onAuthStateChanged(auth, user => {
             if (user) {
                 setUser(user.displayName)
-            }
-            else
+            } else {
                 setUser(user)
-
+            }
         });
 
     }, [])
