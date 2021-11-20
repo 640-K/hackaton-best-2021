@@ -5,9 +5,10 @@ const Leaderboard = ({score, setEnd, setStart, setUpdate, setPoints}) => {
     const [users, setUsers] = useState([])
 
     useEffect(()=>{
-        setScore(score)
-        getLeader().then(data => {
-            setUsers(data)
+        setScore(score).then(t=>{
+                getLeader().then(data => {
+                setUsers(data)
+            })
         })
     }, [])
 

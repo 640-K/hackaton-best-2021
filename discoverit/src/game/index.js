@@ -11,12 +11,10 @@ export default function Index() {
 
   useEffect(() => {
     let d = []
-    for(let key of ['statue' ,'church', 'palace', 'музей', 'пам\'ятка', 'старий' ,'порохова', 'високий' ,'ратуша','монастир', 'базар', 'фортеця', 'tower', 'museum', 'streets'] ){
+    for(let key of ['statue', 'church', 'palace', 'музей', 'пам\'ятка', 'старий' ,'порохова', 'високий' ,'ратуша','монастир', 'базар', 'фортеця', 'tower', 'museum', 'streets', 'seensight'] ){
       getPlaces(key, position).then(result => {
-        console.log('RESULT: ' + places.length)
         let t = []
         result.data.map(tw => {
-          console.log(tw['photos'])
           if(tw['photos']){
             t.push(tw)
           }

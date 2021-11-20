@@ -30,6 +30,5 @@ export function randomArrayShuffle(array) {
 }
 
 export function getNextPlaces(count, places, setPlaces, nextIndex, setNextIndex) {
-    console.log(`getNextPlaces: ${count} ${places.length} ${nextIndex}`)
     setPlaces(randomArrayShuffle(places).slice(0,4))
 }

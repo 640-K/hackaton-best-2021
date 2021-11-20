@@ -26,17 +26,14 @@ function Game({places}) {
     // getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
 
     useEffect(() => {
-        console.log(12)
         getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
     },[])
 
-    console.log(nextPlaces)
-
-    useEffect(() => {
+    useEffect(()=>{
         getMaxScore().then(p => {
             setMax(p)
         })
-    }, [])
+    }, [start])
 
     function HandleDeductPoints() {
         setUpdate(update < 0 ? update-1 : -1);
@@ -45,14 +42,11 @@ function Game({places}) {
     function HandleAddPoints() {
         setRandom(Math.floor(Math.random() * 4))
         getNextPlaces(4, places, setNextPlaces, nextIndex, setNextIndex)
-        let point = 100
-        dispatch(savePoints(point));
+        setPoints(points+100);
         setUpdate(update > 0 ? update+1 : 1)
-        setPoints(store.points);
     }
 
     function ListContainer({items, index}) {
-        console.log(index)
         return (
             <ul className="name-list" style={{"listStyleType": "none", "paddingLeft": "0", "columnCount": "2"}}>
                 {
