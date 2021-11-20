@@ -1,58 +1,93 @@
-import React, {useState,useEffect} from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState, useEffect, useContext} from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import {savePoints} from "../../redux/actions/Actions";
-
-function Game({items}){
-	const dispatch = useDispatch();
+import Bar from "./Bar";
+import contex from "../../contex";
+import Leaderboard from "../../Leaderboard";
+import {getMaxScore} from '../../firebase'
+function Game({items}) {
+    const dispatch = useDispatch();
     const store = useSelector(state => state.store);
-
-	let index = Math.floor(Math.random()*items.length)
+    const {user} = useContext(contex)
+    let index = Math.floor(Math.random() * items.length)
 
     let imgLink = items[index].link;
 
-    console.log(items);
     const [points, setPoints] = useState(store.points);
+    const [update, setUpdate] = useState(0);
+    const [start, setStart] = useState(false);
+    const [isEnd, setEnd] = useState(false);
+    const [max, setMax] = useState('???');
+
+    useEffect(()=>{
+        getMaxScore().then(p=>{
+            setMax(p)
+        })
+    }, [])
 
     function HandleDeductPoints() {
-        let point = -100;
-        dispatch(savePoints(point));
-        setPoints(store.points);
+        setUpdate(update < 0 ? update-1: -1);
     }
 
     function HandleAddPoints() {
-        let point = 200;
+        let point = 100;
         dispatch(savePoints(point));
+        setUpdate(update > 0 ? update+1: 1)
         setPoints(store.points);
+
     }
 
-    function ListContainer({items,index}) {
-    return(
-        <ul className="name-list" style={{"list-style-type": "none", "padding-left":"0"}}>
-            {
-                items.map(((item,keyId) => (
-                    <li key={keyId} >
-                        {keyId == index
-                            ? <button type="button" className="btn btn-dark" onClick={()=>HandleAddPoints()}>{item.name}</button>
-                            : <button type="button" className="btn btn-dark" onClick={()=>HandleDeductPoints()}>{item.name}</button>
-                        }
-                    </li>)))
-            }
-        </ul>
-    );
-}
+    function ListContainer({items, index}) {
+        return (
+            <ul className="name-list" style={{"listStyleType": "none", "paddingLeft": "0", "columnCount": "2"}}>
+                {
+                    items.map(((item, keyId) => (
+                        <li key={keyId}>
+                            <button type="button" className="btn btn-primary w-100 mt-3 p-3"
+                                    onClick={keyId === index ? HandleAddPoints : HandleDeductPoints}>{item.name}</button>
+                        </li>)))
+                }
+            </ul>
+        );
+    }
 
-    return(
-        <div styles={{"display": "column"}}>
-            <img className="rounded img-responsive" src={imgLink} width="250" height="300"/>
-            <ListContainer items={items} index={index}/>
+    function getGame(){
+        return (
             <div>
-                {points}
+                <div className="d-flex justify-content-between">
+                                <h5 className="card-title">Score : <b>{points}</b></h5>
+                                <h5 className="card-title ">Hello, {user}</h5>
+                                <h5 className="card-title">Max score : <b>{max}</b></h5>
+                            </div>
+                            <Bar update={update} start={start} setEnd={setEnd}/>
+                            <img className="rounded img-responsive card-img-top" src={imgLink}/>
+                            <ListContainer items={items} index={index}/>
+            </div>
+        )
+    }
+
+    function getStart(){
+        return (
+            <div className="d-flex justify-content-center align-items-center" style={{"minHeight": "50vh"}}>
+                <button type="button" className="btn btn-primary p-3 w-50" onClick={setStart.bind(true)}>Start</button>
+            </div>
+        )
+    }
+
+    return (
+        <div className="container">
+            <div className="row justify-content-center align-items-center" style={{"height": "100vh"}}>
+                <div className="col-11">
+                    <div className="card">
+                        <div className="card-body">
+                            {start? isEnd?  <Leaderboard score={points} setEnd={setEnd} setStart={setStart} setUpdate={setUpdate} setPoints={setPoints}/> :getGame(): getStart()}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );
 }
-
-
 
 
 export default Game;

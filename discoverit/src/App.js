@@ -1,22 +1,36 @@
 import React, {useState,useEffect} from "react";
 import Index from "./game/index.js";
 import Login from "./Login";
-import "./App.css";
+import {onAuthStateChanged} from "firebase/auth"
+import {auth} from "./firebase"
+import {Loading} from "./loader";
+import Context from "./contex";
 
 const App = () =>{
-    const [name, setName] = useState(false);
-    if(!name ){
-        return <Login setName={setName}/>;
-    }
+    const [user, setUser] = useState(false);
 
-    return (    
-    <div className="App">
-        <header className="App-header">
 
-            <Index/>
-        </header>
-    </div>
-    );
+    useEffect(()=>{
+        onAuthStateChanged(auth, user => {
+            if (user) {
+                setUser(user.displayName)
+            }
+            else
+                setUser(user)
+
+        });
+
+    }, [])
+
+    if(user === false)
+        return <Loading />
+
+    return (
+
+         <Context.Provider value={{user}}>
+            {user ? <Index/> : <Login setUser={setUser}/>}
+        </Context.Provider>
+    )
 }
 
 

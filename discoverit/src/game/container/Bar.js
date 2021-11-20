@@ -1,36 +1,33 @@
 import React, {useState,useEffect} from "react";
 import Leaderboard from "../../Leaderboard";
+import ReactDOM from 'react-dom';
 
-function Bar({setRestart}) {
+function Bar({update, start, setEnd}) {
 	const [seconds, setSeconds] = useState(10);
-	const [isActive, setIsActive] = useState(true);
 
-	function toggle() {
-		setIsActive(!isActive);
-	}
-
-	function reset() {
-		setSeconds(0);
-		setIsActive(true);
-	}
+	useEffect(()=>{
+		if (update > 0)
+			setSeconds(10)
+		else if (update < 0)
+			setSeconds(seconds-3)
+	}, [update])
 
 	useEffect(() => {
 		let interval = null;
-			if (isActive) {
+			if (start) {
 				interval = setInterval(() => {
 					setSeconds(seconds => seconds - 0.5);
 				}, 500);
-				if (seconds === 0) {
-					reset();
+				if (seconds < 0) {
 					clearInterval(interval);
-					return(<Leaderboard/>);
+					setEnd(true)
 				}
 			}
 		return () => clearInterval(interval);
-		}, [seconds]);
+		}, [start, seconds]);
 	return(
-        <div className="progress">
-            <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{"width": `${(seconds/10)*100}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div className="progress mb-3">
+            <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style={{"width": `${(seconds/10)*100}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"/>
         </div>
     );
 

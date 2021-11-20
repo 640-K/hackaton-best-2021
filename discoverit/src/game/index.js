@@ -1,11 +1,9 @@
-import React, {useEffect,useState} from 'react';
+import React, {useState} from 'react';
 import Game from "./container/Game.js";
-import Bar from "./container/Bar.js";
+import {Loading} from "../loader";
 
 
 export default function Index() {
-	console.log("check restart");
-	const [restart, setRestart] = useState(1);
 	let a = [
         {
             id: 0,
@@ -31,18 +29,7 @@ export default function Index() {
     ];
     const [items, setItems] = useState(a);
 
-
-	return(
-		 <div styles={{"display": "column"}}>
-			{a ? <div> <Game items={items}/> <Bar setRestart={setRestart}/> </div> :<Loading />}
-		</div>
-	);
-
-	function Loading(){
-	    return(
-	        <div className="spinner-border text-primary" role="status">
-	            <span className="sr-only"></span>
-	        </div>
-	    );
-	}
+    if(!items)
+        return <Loading />
+	return <Game items={items}/>
 }
