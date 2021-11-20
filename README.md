@@ -1,10 +1,13 @@
 # Hacakton Test task 2021
+
 ## Idea:
-Our idea is to give quick way of learning seesights of our native city.
-We implemented web application which allows you to train your knowlage 
-by choosing the right name (monument,buildings etc.) on picture.
+Our idea is to give a quick way of learning seesights of your native city.  
+We implemented a web application which allows you to train your knowlege  
+by choosing the right name for a given monument, building, etc that is  
+displayed on the picture.  
+
 ## Technologies that we used:
-- REACT
-- JS
+- React JS
+- Node JS
 - Firebase
-- Place API
+- Google Places API
